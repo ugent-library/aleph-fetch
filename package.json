@@ -1,0 +1,16 @@
+{
+  "name": "aleph-fetch",
+  "version": "1.0.0",
+  "description": "Custom fetch method for the Aleph REST API",
+  "main": "index.js",
+  "module": "main.js",
+  "repository": "git@github.ugent.be:koeverhe/aleph-fetch.git",
+  "author": "Koen Verheyen <koen.verheyen@inuits.eu>",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "esm": "^3.2.25",
+    "node-fetch": "^2.6.1",
+    "xml2js-es6-promise": "^1.1.1"
+  }
+}
