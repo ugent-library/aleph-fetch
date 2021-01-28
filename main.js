@@ -3,7 +3,7 @@ import fetch from 'node-fetch'
 import xml2js from 'xml2js-es6-promise'
 
 export default async (op, params, explicitArray = false, ignoreErrors = false) => {
-  const url = new URL(`http://${process.env.ALEPH_HOST}.ugent.be/X`)
+  const url = new URL('X', process.env.ALEPH_HOST)
 
   params = {
     library: 'rug50',
