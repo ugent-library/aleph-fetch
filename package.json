@@ -10,6 +10,7 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
+    "jstoxml": "^2.0.3",
     "node-fetch": "^2.6.1",
     "xml2js-es6-promise": "^1.1.1"
   }
