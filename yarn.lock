@@ -32,14 +32,7 @@ sax@>=0.6.0:
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
 
-xml2js-es6-promise@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/xml2js-es6-promise/-/xml2js-es6-promise-1.1.1.tgz#cd5688d9d6344e67c908f71e5b0a3d88d128e9a2"
-  integrity sha1-zVaI2dY0TmfJCPceWwo9iNEo6aI=
-  dependencies:
-    xml2js "^0.4.16"
-
-xml2js@^0.4.16:
+xml2js@^0.4.23:
   version "0.4.23"
   resolved "https://registry.yarnpkg.com/xml2js/-/xml2js-0.4.23.tgz#a0c69516752421eb2ac758ee4d4ccf58843eac66"
   integrity sha512-ySPiMjM0+pLDftHgXY4By0uswI3SPKLDw/i3UXbnO8M/p28zqexCUoPmQFrYD+/1BzhGJSs2i1ERWKJAtiLrug==

@@ -1,5 +1,5 @@
 import fetch from 'node-fetch'
-import xml2js from 'xml2js-es6-promise'
+import xml2js from 'xml2js'
 
 export default async function alephFetch(op, params, explicitArray = false, ignoreErrors = false) {
   const url = new URL('X', process.env.ALEPH_HOST)
@@ -16,7 +16,7 @@ export default async function alephFetch(op, params, explicitArray = false, igno
 
   const body = await response.text()
 
-  const data = await xml2js(body, { explicitArray })
+  const data = await xml2js.parseStringPromise(body, { explicitArray })
 
   if (!ignoreErrors && data[op].error) {
     const error = explicitArray ? data[op].error[0] : data[op].error
