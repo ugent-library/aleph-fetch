@@ -4,7 +4,7 @@
   "description": "Custom Node.js fetch method for the Aleph REST API",
   "main": "index.js",
   "module": "main.js",
-  "repository": "git@github.ugent.be:koeverhe/aleph-fetch.git",
+  "repository": "git@github.com:ugent-library/aleph-fetch.git",
   "author": "Koen Verheyen <koen.verheyen@inuits.eu>",
   "license": "MIT",
   "dependencies": {
