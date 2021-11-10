@@ -1,7 +1,7 @@
 import jstoxml from 'jstoxml'
-import { isPlainObject, chunk } from 'lodash'
+import { isPlainObject, chunk } from 'lodash-es'
 
-import alephFetch from './aleph-fetch'
+import alephFetch from './aleph-fetch.js'
 
 export async function updateItem(docNumber, itemSequence, ...data) {
   let dataset = null

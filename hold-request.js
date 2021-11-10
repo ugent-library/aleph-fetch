@@ -1,4 +1,4 @@
-import alephFetch from './aleph-fetch'
+import alephFetch from './aleph-fetch.js'
 
 export async function holdRequest(borId, barcode) {
   return await alephFetch('hold-req', {

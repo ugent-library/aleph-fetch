@@ -1,4 +1,4 @@
-import alephFetch from './aleph-fetch'
+import alephFetch from './aleph-fetch.js'
 
 export async function holdRequestCancel(item) {
   const response = await alephFetch('hold-req-cancel', {
