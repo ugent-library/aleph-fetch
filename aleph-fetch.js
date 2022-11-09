@@ -1,4 +1,3 @@
-import fetch from 'node-fetch'
 import xml2js from 'xml2js'
 
 export default async function alephFetch(op, params, explicitArray = false, ignoreErrors = false) {
