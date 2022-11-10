@@ -15,11 +15,15 @@ export default async function alephFetch(op, params, explicitArray = false, igno
 
   const body = await response.text()
 
+  if (body.includes('Error 403')) {
+    throw new Error(`Cannot reach ALEPH_HOST: ${process.env.ALEPH_HOST}`)
+  }
+
   const data = await xml2js.parseStringPromise(body, { explicitArray })
 
   if (!ignoreErrors && data[op].error) {
     const error = explicitArray ? data[op].error[0] : data[op].error
-    throw Error(error)
+    throw new Error(error)
   }
 
   return data[op]
