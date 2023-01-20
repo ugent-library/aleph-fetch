@@ -1,6 +1,6 @@
-import alephFetch from './aleph-fetch.js'
+import alephFetch from './aleph-fetch'
 
-export async function itemData(docNumber) {
+export async function itemData(docNumber: string) {
   return await alephFetch(
     'item-data',
     {

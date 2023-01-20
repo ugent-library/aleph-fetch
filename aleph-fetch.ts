@@ -1,7 +1,12 @@
 import fetch from 'node-fetch'
 import xml2js from 'xml2js'
 
-export default async function alephFetch(op, params, explicitArray = false, ignoreErrors = false) {
+export default async function alephFetch(
+  op: string,
+  params: Record<string, string>,
+  explicitArray = false,
+  ignoreErrors = false
+) {
   const url = new URL('X', process.env.ALEPH_HOST)
 
   params = {
@@ -10,9 +15,9 @@ export default async function alephFetch(op, params, explicitArray = false, igno
     op,
   }
 
-  Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+  Object.entries(params).forEach(([key, value]) => url.searchParams.append(key, value))
 
-  const response = await fetch(url)
+  const response = await fetch(url.toString())
 
   const body = await response.text()
 
@@ -24,6 +29,7 @@ export default async function alephFetch(op, params, explicitArray = false, igno
 
   if (!ignoreErrors && data[op].error) {
     const error = explicitArray ? data[op].error[0] : data[op].error
+
     throw new Error(error)
   }
 
