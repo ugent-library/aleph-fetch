@@ -1,15 +1,8 @@
-import alephFetch from './aleph-fetch'
+import { type Aleph } from './typings/aleph'
+import alephFetch from './util/aleph-fetch'
 
-type BorInfo = {
-  z303: Aleph.Z303
-  z304: Aleph.Z304
-  z305: Aleph.Z305
-  'item-l': Aleph.ItemLoan[]
-  'item-h': Aleph.ItemHold[]
-}
-
-export async function borrowerInfo(borId: string, hold = true, loans = true): Promise<BorInfo> {
-  const response = await alephFetch('bor-info', {
+export async function borrowerInfo(borId: string, hold = true, loans = true): Promise<Aleph.BorrowerInfoResponse> {
+  const response = await alephFetch<Aleph.BorrowerInfoResponse>('bor-info', {
     bor_id: borId,
     hold: hold ? 'Y' : 'N',
     loans: loans ? 'Y' : 'N',

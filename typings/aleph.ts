@@ -1,4 +1,55 @@
-declare namespace Aleph {
+export declare namespace Aleph {
+  type BaseResponse = {
+    error?: string | string[]
+    'session-id': string
+  }
+
+  type BorrowerInfoResponse = {
+    z303: Z303
+    z304: Z304
+    z305: Z305
+    'item-l': ItemLoan[]
+    'item-h': ItemHold[]
+  } & BaseResponse
+
+  type FindDocumentResponse = {
+    record: {
+      metadata: {
+        oai_marc: {
+          fixfield: FixField[]
+          varfield: VarField[]
+        }
+      }
+    }
+  } & BaseResponse
+
+  type ReadItemResponse = {
+    z30: Aleph.Z30
+  } & BaseResponse
+
+  class FixField {
+    _: string
+    $: {
+      id: string
+    }
+  }
+
+  type VarField = {
+    $: {
+      id: string
+      i1: string
+      i2: string
+    }
+    subfield: SubField[]
+  }
+
+  type SubField = {
+    _: string
+    $: {
+      label: string
+    }
+  }
+
   type ItemLoan = {
     z36: Z36
     z30: Z30
