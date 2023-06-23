@@ -1,4 +1,6 @@
-import 'dotenv/config'
+import '@total-typescript/ts-reset'
+
+import './util/env-config'
 
 export * from './borrower-info'
 export * from './find-document'
