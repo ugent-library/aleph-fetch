@@ -1,7 +1,8 @@
-import alephFetch from './aleph-fetch.js'
+import { type Aleph } from './typings/aleph'
+import alephFetch from './util/aleph-fetch'
 
-export async function borrowerInfo(borId, hold = true, loans = true) {
-  const response = await alephFetch('bor-info', {
+export async function borrowerInfo(borId: string, hold = true, loans = true): Promise<Aleph.BorrowerInfoResponse> {
+  const response = await alephFetch<Aleph.BorrowerInfoResponse>('bor-info', {
     bor_id: borId,
     hold: hold ? 'Y' : 'N',
     loans: loans ? 'Y' : 'N',
