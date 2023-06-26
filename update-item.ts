@@ -38,8 +38,10 @@ export async function updateItem(docNumber: string, itemSequence: string, ...dat
   if (response.error) {
     const error = typeof response.error !== 'string' ? response.error[0] : response.error
 
-    throw new Error(error)
-  } else {
-    return response
+    if (error !== 'Item has been updated successfully') {
+      throw new Error(error)
+    }
   }
+
+  return response
 }
