@@ -1,6 +1,6 @@
 {
   "name": "aleph-fetch",
-  "version": "3.1.0",
+  "version": "4.0.0",
   "description": "Custom Node.js fetch method for the Aleph REST API",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
