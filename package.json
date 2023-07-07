@@ -9,29 +9,32 @@
   "author": "Koen Verheyen <koen.verheyen@inuits.eu>",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf dist/ && tsup index.ts --format cjs,esm --dts",
+    "build": "tsup",
     "lint": "tsc",
+    "lint:bundled": "tsc dist/index.d.ts dist/index.d.mts",
     "non-dirty-check": "git diff --quiet --exit-code"
   },
   "precommit": [
+    "lint",
     "build",
+    "lint:bundled",
     "non-dirty-check"
   ],
   "dependencies": {
-    "dotenv": "^16.0.3",
-    "jstoxml": "^3.2.5",
+    "dotenv": "^16.3.1",
+    "jstoxml": "^3.2.7",
     "lodash": "^4.17.21",
-    "xml2js": "^0.4.23",
+    "xml2js": "^0.6.0",
     "zod": "^3.21.4"
   },
   "devDependencies": {
     "@fastify/pre-commit": "^2.0.2",
     "@total-typescript/ts-reset": "^0.4.2",
     "@types/jstoxml": "^2.0.2",
-    "@types/lodash": "^4.14.191",
-    "@types/node": "^18.11.18",
+    "@types/lodash": "^4.14.195",
+    "@types/node": "^20.4.0",
     "@types/xml2js": "^0.4.11",
-    "tsup": "^6.5.0",
-    "typescript": "^4.9.4"
+    "tsup": "^7.1.0",
+    "typescript": "^5.1.6"
   }
 }
