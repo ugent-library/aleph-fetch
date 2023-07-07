@@ -25,12 +25,12 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@fastify/pre-commit": "^2.0.2",
     "@total-typescript/ts-reset": "^0.4.2",
     "@types/jstoxml": "^2.0.2",
     "@types/lodash": "^4.14.191",
     "@types/node": "^18.11.18",
     "@types/xml2js": "^0.4.11",
-    "pre-commit": "^1.2.2",
     "tsup": "^6.5.0",
     "typescript": "^4.9.4"
   }
