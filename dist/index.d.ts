@@ -23,8 +23,8 @@ declare namespace Aleph {
         z303: Z303;
         z304: Z304;
         z305: Z305;
-        'item-l': ItemLoan[];
-        'item-h': ItemHold[];
+        'item-l': ItemLoan[] | undefined;
+        'item-h': ItemHold[] | undefined;
     } & BaseResponse;
     type FindDocumentResponse = {
         record: {

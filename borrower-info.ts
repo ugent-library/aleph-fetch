@@ -9,23 +9,25 @@ export async function borrowerInfo(borId: string, hold = true, loans = true): Pr
     cash: 'N',
   })
 
-  if (hold && !response['item-h']) {
-    response['item-h'] = []
+  if (hold) {
+    response['item-h'] = convertSingleObjectToArray(response['item-h'])
+  } else {
+    response['item-h'] = undefined
   }
 
-  if (loans && !response['item-l']) {
-    response['item-l'] = []
-  }
-
-  // Force array in case patron has only one item on hold
-  if (!Array.isArray(response['item-h'])) {
-    response['item-h'] = [response['item-h']]
-  }
-
-  // Force array in case patron has only one item on loan
-  if (!Array.isArray(response['item-l'])) {
-    response['item-l'] = [response['item-l']]
+  if (loans) {
+    response['item-l'] = convertSingleObjectToArray(response['item-l'])
+  } else {
+    response['item-l'] = undefined
   }
 
   return response
+}
+
+function convertSingleObjectToArray<T>(objectOrArray: T | T[] | undefined): T[] {
+  if (!objectOrArray) {
+    return []
+  }
+
+  return !Array.isArray(objectOrArray) ? [objectOrArray] : objectOrArray
 }

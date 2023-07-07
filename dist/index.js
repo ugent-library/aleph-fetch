@@ -118,20 +118,24 @@ function borrowerInfo(borId, hold = true, loans = true) {
       loans: loans ? "Y" : "N",
       cash: "N"
     });
-    if (hold && !response["item-h"]) {
-      response["item-h"] = [];
+    if (hold) {
+      response["item-h"] = convertSingleObjectToArray(response["item-h"]);
+    } else {
+      response["item-h"] = void 0;
     }
-    if (loans && !response["item-l"]) {
-      response["item-l"] = [];
-    }
-    if (!Array.isArray(response["item-h"])) {
-      response["item-h"] = [response["item-h"]];
-    }
-    if (!Array.isArray(response["item-l"])) {
-      response["item-l"] = [response["item-l"]];
+    if (loans) {
+      response["item-l"] = convertSingleObjectToArray(response["item-l"]);
+    } else {
+      response["item-l"] = void 0;
     }
     return response;
   });
+}
+function convertSingleObjectToArray(objectOrArray) {
+  if (!objectOrArray) {
+    return [];
+  }
+  return !Array.isArray(objectOrArray) ? [objectOrArray] : objectOrArray;
 }
 
 // find-document.ts
