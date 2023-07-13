@@ -1,6 +1,6 @@
 {
   "name": "aleph-fetch",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "description": "Custom Node.js wrapper methods for the Aleph X-Services API",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
