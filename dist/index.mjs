@@ -173,6 +173,11 @@ function readItem(barcode) {
     return yield alephFetch("read-item", { item_barcode: barcode });
   });
 }
+function readItemByDocument(doc_number, item_sequence) {
+  return __async(this, null, function* () {
+    return yield alephFetch("read-item", { doc_number, item_sequence });
+  });
+}
 
 // update-item.ts
 import jstoxml from "jstoxml";
@@ -217,5 +222,6 @@ export {
   itemData,
   present,
   readItem,
+  readItemByDocument,
   updateItem
 };

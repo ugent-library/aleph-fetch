@@ -419,7 +419,8 @@ declare function itemData(docNumber: string): Promise<Aleph.BaseResponse>;
 declare function present(setNumber: string, setEntry: string): Promise<Aleph.BaseResponse>;
 
 declare function readItem(barcode: string): Promise<Aleph.ReadItemResponse>;
+declare function readItemByDocument(doc_number: string, item_sequence: string): Promise<Aleph.BaseResponse>;
 
 declare function updateItem(docNumber: string, itemSequence: string, ...data: object[] | string[]): Promise<Aleph.BaseResponse>;
 
-export { Aleph, borrowerInfo, find, findDocument, holdRequest, holdRequestCancel, itemData, present, readItem, updateItem };
+export { Aleph, borrowerInfo, find, findDocument, holdRequest, holdRequestCancel, itemData, present, readItem, readItemByDocument, updateItem };

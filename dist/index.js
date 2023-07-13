@@ -75,6 +75,7 @@ __export(aleph_fetch_exports, {
   itemData: () => itemData,
   present: () => present,
   readItem: () => readItem,
+  readItemByDocument: () => readItemByDocument,
   updateItem: () => updateItem
 });
 module.exports = __toCommonJS(aleph_fetch_exports);
@@ -214,6 +215,11 @@ function readItem(barcode) {
     return yield alephFetch("read-item", { item_barcode: barcode });
   });
 }
+function readItemByDocument(doc_number, item_sequence) {
+  return __async(this, null, function* () {
+    return yield alephFetch("read-item", { doc_number, item_sequence });
+  });
+}
 
 // update-item.ts
 var import_jstoxml = __toESM(require("jstoxml"));
@@ -259,5 +265,6 @@ function updateItem(docNumber, itemSequence, ...data) {
   itemData,
   present,
   readItem,
+  readItemByDocument,
   updateItem
 });
