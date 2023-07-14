@@ -1,5 +1,3 @@
-import '@total-typescript/ts-reset'
-
 import './util/env-config'
 
 export * from './borrower-info'
