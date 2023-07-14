@@ -1,4 +1,4 @@
-import jstoxml from 'jstoxml'
+import { toXML } from 'jstoxml'
 import { isPlainObject, chunk } from 'lodash'
 
 import { type Aleph } from './typings/aleph'
@@ -33,7 +33,7 @@ export async function updateItem(docNumber: string, itemSequence: string, ...dat
     updateItemRequest['update-item']['z30'][key] = value
   }
 
-  const response = await alephFetch('update-item', { xml_full_req: jstoxml.toXML(updateItemRequest) }, false, true)
+  const response = await alephFetch('update-item', { xml_full_req: toXML(updateItemRequest) }, false, true)
 
   if (response.error) {
     const error = typeof response.error !== 'string' ? response.error[0] : response.error

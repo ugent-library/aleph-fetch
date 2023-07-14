@@ -1,12 +1,10 @@
 "use strict";
-var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __defProps = Object.defineProperties;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getOwnPropSymbols = Object.getOwnPropertySymbols;
-var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __propIsEnum = Object.prototype.propertyIsEnumerable;
 var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
@@ -34,14 +32,6 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 var __async = (__this, __arguments, generator) => {
   return new Promise((resolve, reject) => {
@@ -89,7 +79,7 @@ var envVariables = import_zod.z.object({
 envVariables.parse(process.env);
 
 // util/aleph-fetch.ts
-var import_xml2js = __toESM(require("xml2js"));
+var import_xml2js = require("xml2js");
 function alephFetch(op, params, explicitArray = false, ignoreErrors = false) {
   return __async(this, null, function* () {
     const url = new URL("X", process.env.ALEPH_HOST);
@@ -104,7 +94,7 @@ function alephFetch(op, params, explicitArray = false, ignoreErrors = false) {
     if (body.includes("Error 403")) {
       throw new Error(`Cannot reach ALEPH_HOST: ${process.env.ALEPH_HOST}`);
     }
-    const data = yield import_xml2js.default.parseStringPromise(body, { explicitArray });
+    const data = yield (0, import_xml2js.parseStringPromise)(body, { explicitArray });
     const result = data[op];
     if (!ignoreErrors && result.error) {
       const error = typeof result.error === "string" ? result.error : result.error[0];
@@ -222,7 +212,7 @@ function readItemByDocument(doc_number, item_sequence) {
 }
 
 // update-item.ts
-var import_jstoxml = __toESM(require("jstoxml"));
+var import_jstoxml = require("jstoxml");
 var import_lodash = require("lodash");
 function updateItem(docNumber, itemSequence, ...data) {
   return __async(this, null, function* () {
@@ -245,7 +235,7 @@ function updateItem(docNumber, itemSequence, ...data) {
     for (let [key, value] of dataset) {
       updateItemRequest["update-item"]["z30"][key] = value;
     }
-    const response = yield alephFetch("update-item", { xml_full_req: import_jstoxml.default.toXML(updateItemRequest) }, false, true);
+    const response = yield alephFetch("update-item", { xml_full_req: (0, import_jstoxml.toXML)(updateItemRequest) }, false, true);
     if (response.error) {
       const error = typeof response.error !== "string" ? response.error[0] : response.error;
       if (error !== "Item has been updated successfully") {

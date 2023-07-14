@@ -47,7 +47,7 @@ var envVariables = z.object({
 envVariables.parse(process.env);
 
 // util/aleph-fetch.ts
-import xml2js from "xml2js";
+import { parseStringPromise } from "xml2js";
 function alephFetch(op, params, explicitArray = false, ignoreErrors = false) {
   return __async(this, null, function* () {
     const url = new URL("X", process.env.ALEPH_HOST);
@@ -62,7 +62,7 @@ function alephFetch(op, params, explicitArray = false, ignoreErrors = false) {
     if (body.includes("Error 403")) {
       throw new Error(`Cannot reach ALEPH_HOST: ${process.env.ALEPH_HOST}`);
     }
-    const data = yield xml2js.parseStringPromise(body, { explicitArray });
+    const data = yield parseStringPromise(body, { explicitArray });
     const result = data[op];
     if (!ignoreErrors && result.error) {
       const error = typeof result.error === "string" ? result.error : result.error[0];
@@ -180,7 +180,7 @@ function readItemByDocument(doc_number, item_sequence) {
 }
 
 // update-item.ts
-import jstoxml from "jstoxml";
+import { toXML } from "jstoxml";
 import { isPlainObject, chunk } from "lodash";
 function updateItem(docNumber, itemSequence, ...data) {
   return __async(this, null, function* () {
@@ -203,7 +203,7 @@ function updateItem(docNumber, itemSequence, ...data) {
     for (let [key, value] of dataset) {
       updateItemRequest["update-item"]["z30"][key] = value;
     }
-    const response = yield alephFetch("update-item", { xml_full_req: jstoxml.toXML(updateItemRequest) }, false, true);
+    const response = yield alephFetch("update-item", { xml_full_req: toXML(updateItemRequest) }, false, true);
     if (response.error) {
       const error = typeof response.error !== "string" ? response.error[0] : response.error;
       if (error !== "Item has been updated successfully") {

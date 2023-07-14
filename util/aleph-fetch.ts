@@ -1,4 +1,4 @@
-import xml2js from 'xml2js'
+import { parseStringPromise } from 'xml2js'
 import { type Aleph } from '../typings/aleph'
 
 export default async function alephFetch<TResponse extends Aleph.BaseResponse>(
@@ -6,7 +6,7 @@ export default async function alephFetch<TResponse extends Aleph.BaseResponse>(
   params: Record<string, string>,
   explicitArray = false,
   ignoreErrors = false
-): Promise<TResponse> | never {
+): Promise<TResponse | never> {
   const url = new URL('X', process.env.ALEPH_HOST)
 
   params = {
@@ -26,7 +26,7 @@ export default async function alephFetch<TResponse extends Aleph.BaseResponse>(
 
   const data: {
     [key: typeof op]: TResponse
-  } = await xml2js.parseStringPromise(body, { explicitArray })
+  } = await parseStringPromise(body, { explicitArray })
   const result = data[op] as TResponse
 
   if (!ignoreErrors && result.error) {
