@@ -1,4 +1,4 @@
-import alephFetch from './util/aleph-fetch'
+import alephFetch from '../util/aleph-fetch'
 
 export async function find(request: string) {
   return await alephFetch('find', {

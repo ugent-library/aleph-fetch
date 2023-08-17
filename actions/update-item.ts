@@ -1,8 +1,8 @@
 import { toXML } from 'jstoxml'
 import { isPlainObject, chunk } from 'lodash'
 
-import { type Aleph } from './typings/aleph'
-import alephFetch from './util/aleph-fetch'
+import { type Aleph } from '../typings/aleph'
+import alephFetch from '../util/aleph-fetch'
 
 type UpdateItemRequest = {
   'update-item': {

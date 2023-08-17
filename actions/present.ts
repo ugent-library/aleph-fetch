@@ -1,4 +1,4 @@
-import alephFetch from './util/aleph-fetch'
+import alephFetch from '../util/aleph-fetch'
 
 export async function present(setNumber: string, setEntry: string) {
   return await alephFetch('present', {

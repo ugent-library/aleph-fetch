@@ -1,5 +1,5 @@
-import { type Aleph } from './typings/aleph'
-import alephFetch from './util/aleph-fetch'
+import { type Aleph } from '../typings/aleph'
+import alephFetch from '../util/aleph-fetch'
 
 export async function holdRequestCancel(item: Aleph.ItemHold) {
   const response = await alephFetch('hold-req-cancel', {

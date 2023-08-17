@@ -410,9 +410,9 @@ declare function findDocument(docNumber: string, base?: string): Promise<Aleph.F
 
 declare function find(request: string): Promise<Aleph.BaseResponse>;
 
-declare function holdRequest(borId: string, barcode: string): Promise<Aleph.BaseResponse>;
-
 declare function holdRequestCancel(item: Aleph.ItemHold): Promise<Aleph.BaseResponse>;
+
+declare function holdRequest(borId: string, barcode: string): Promise<Aleph.BaseResponse>;
 
 declare function itemData(docNumber: string): Promise<Aleph.BaseResponse>;
 

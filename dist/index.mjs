@@ -72,7 +72,7 @@ function alephFetch(op, params, explicitArray = false, ignoreErrors = false) {
   });
 }
 
-// borrower-info.ts
+// actions/borrower-info.ts
 function borrowerInfo(borId, hold = true, loans = true) {
   return __async(this, null, function* () {
     const response = yield alephFetch("bor-info", {
@@ -101,7 +101,7 @@ function convertSingleObjectToArray(objectOrArray) {
   return !Array.isArray(objectOrArray) ? [objectOrArray] : objectOrArray;
 }
 
-// find-document.ts
+// actions/find-document.ts
 function findDocument(docNumber, base = "rug01") {
   return __async(this, null, function* () {
     return yield alephFetch("find-doc", {
@@ -111,7 +111,7 @@ function findDocument(docNumber, base = "rug01") {
   });
 }
 
-// find.ts
+// actions/find.ts
 function find(request) {
   return __async(this, null, function* () {
     return yield alephFetch("find", {
@@ -121,17 +121,7 @@ function find(request) {
   });
 }
 
-// hold-request.ts
-function holdRequest(borId, barcode) {
-  return __async(this, null, function* () {
-    return yield alephFetch("hold-req", {
-      bor_id: borId,
-      item_barcode: barcode
-    });
-  });
-}
-
-// hold-request-cancel.ts
+// actions/hold-request-cancel.ts
 function holdRequestCancel(item) {
   return __async(this, null, function* () {
     const response = yield alephFetch("hold-req-cancel", {
@@ -143,7 +133,17 @@ function holdRequestCancel(item) {
   });
 }
 
-// item-data.ts
+// actions/hold-request.ts
+function holdRequest(borId, barcode) {
+  return __async(this, null, function* () {
+    return yield alephFetch("hold-req", {
+      bor_id: borId,
+      item_barcode: barcode
+    });
+  });
+}
+
+// actions/item-data.ts
 function itemData(docNumber) {
   return __async(this, null, function* () {
     return yield alephFetch(
@@ -157,7 +157,7 @@ function itemData(docNumber) {
   });
 }
 
-// present.ts
+// actions/present.ts
 function present(setNumber, setEntry) {
   return __async(this, null, function* () {
     return yield alephFetch("present", {
@@ -167,7 +167,7 @@ function present(setNumber, setEntry) {
   });
 }
 
-// read-item.ts
+// actions/read-item.ts
 function readItem(barcode) {
   return __async(this, null, function* () {
     return yield alephFetch("read-item", { item_barcode: barcode });
@@ -179,7 +179,7 @@ function readItemByDocument(doc_number, item_sequence) {
   });
 }
 
-// update-item.ts
+// actions/update-item.ts
 import { toXML } from "jstoxml";
 import { isPlainObject, chunk } from "lodash";
 function updateItem(docNumber, itemSequence, ...data) {
