@@ -5,19 +5,27 @@ export default async function alephFetch<TResponse extends Aleph.BaseResponse>(
   op: string,
   params: Record<string, string>,
   explicitArray = false,
-  ignoreErrors = false
+  ignoreErrors = false,
+  method = 'GET'
 ): Promise<TResponse | never> {
   const url = new URL('X', process.env.ALEPH_HOST)
 
   params = {
+    op,
     library: 'rug50',
     ...params,
-    op,
   }
 
-  Object.entries(params).forEach(([key, value]) => url.searchParams.append(key, value))
+  let requestBody: URLSearchParams | null = null
+  const headers: HeadersInit = {}
+  if (method === 'POST') {
+    requestBody = new URLSearchParams(params)
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+  } else {
+    Object.entries(params).forEach(([key, value]) => url.searchParams.append(key, value))
+  }
 
-  const response = await fetch(url.toString())
+  const response = await fetch(url.toString(), { method, body: requestBody, headers })
   const body = await response.text()
 
   if (body.includes('Error 403')) {

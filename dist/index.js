@@ -1,8 +1,6 @@
 "use strict";
 var __defProp = Object.defineProperty;
-var __defProps = Object.defineProperties;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
@@ -19,7 +17,6 @@ var __spreadValues = (a, b) => {
     }
   return a;
 };
-var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
@@ -66,6 +63,7 @@ __export(aleph_fetch_exports, {
   present: () => present,
   readItem: () => readItem,
   readItemByDocument: () => readItemByDocument,
+  updateBorrowerEmail: () => updateBorrowerEmail,
   updateItem: () => updateItem
 });
 module.exports = __toCommonJS(aleph_fetch_exports);
@@ -80,16 +78,22 @@ envVariables.parse(process.env);
 
 // util/aleph-fetch.ts
 var import_xml2js = require("xml2js");
-function alephFetch(op, params, explicitArray = false, ignoreErrors = false) {
+function alephFetch(op, params, explicitArray = false, ignoreErrors = false, method = "GET") {
   return __async(this, null, function* () {
     const url = new URL("X", process.env.ALEPH_HOST);
-    params = __spreadProps(__spreadValues({
+    params = __spreadValues({
+      op,
       library: "rug50"
-    }, params), {
-      op
-    });
-    Object.entries(params).forEach(([key, value]) => url.searchParams.append(key, value));
-    const response = yield fetch(url.toString());
+    }, params);
+    let requestBody = null;
+    const headers = {};
+    if (method === "POST") {
+      requestBody = new URLSearchParams(params);
+      headers["Content-Type"] = "application/x-www-form-urlencoded";
+    } else {
+      Object.entries(params).forEach(([key, value]) => url.searchParams.append(key, value));
+    }
+    const response = yield fetch(url.toString(), { method, body: requestBody, headers });
     const body = yield response.text();
     if (body.includes("Error 403")) {
       throw new Error(`Cannot reach ALEPH_HOST: ${process.env.ALEPH_HOST}`);
@@ -211,8 +215,46 @@ function readItemByDocument(doc_number, item_sequence) {
   });
 }
 
-// actions/update-item.ts
+// actions/update-borrower-email.ts
 var import_jstoxml = require("jstoxml");
+function updateBorrowerEmail(borId, newEmailAddress) {
+  return __async(this, null, function* () {
+    if (!borId.match(/^PWD\d+$/)) {
+      const borInfo = yield borrowerInfo(borId, false, false);
+      borId = borInfo.z303["z303-id"];
+    }
+    const requestData = {
+      "p-file-20": {
+        "patron-record": {
+          z303: {
+            "match-id-type": "00",
+            "match-id": borId,
+            "record-action": "X"
+          },
+          z304: {
+            "record-action": "U",
+            "z304-email-address": newEmailAddress,
+            "z304-address-type": "01"
+          }
+        }
+      }
+    };
+    const params = {
+      update_flag: "Y",
+      xml_full_req: (0, import_jstoxml.toXML)(requestData)
+    };
+    const result = yield alephFetch("update-bor", params, void 0, true, "POST");
+    if (result.error) {
+      const error = typeof result.error === "string" ? result.error : result.error[0];
+      if (error && error !== `Succeeded to REWRITE table z304. cur-id ${borId}.`) {
+        throw new Error(error);
+      }
+    }
+  });
+}
+
+// actions/update-item.ts
+var import_jstoxml2 = require("jstoxml");
 var import_lodash = require("lodash");
 function updateItem(docNumber, itemSequence, ...data) {
   return __async(this, null, function* () {
@@ -235,7 +277,7 @@ function updateItem(docNumber, itemSequence, ...data) {
     for (let [key, value] of dataset) {
       updateItemRequest["update-item"]["z30"][key] = value;
     }
-    const response = yield alephFetch("update-item", { xml_full_req: (0, import_jstoxml.toXML)(updateItemRequest) }, false, true);
+    const response = yield alephFetch("update-item", { xml_full_req: (0, import_jstoxml2.toXML)(updateItemRequest) }, false, true);
     if (response.error) {
       const error = typeof response.error !== "string" ? response.error[0] : response.error;
       if (error !== "Item has been updated successfully") {
@@ -256,5 +298,6 @@ function updateItem(docNumber, itemSequence, ...data) {
   present,
   readItem,
   readItemByDocument,
+  updateBorrowerEmail,
   updateItem
 });
