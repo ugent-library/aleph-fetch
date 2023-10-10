@@ -22,19 +22,19 @@
   ],
   "dependencies": {
     "dotenv": "^16.3.1",
-    "jstoxml": "^3.2.7",
+    "jstoxml": "^3.2.8",
     "lodash": "^4.17.21",
-    "xml2js": "^0.6.0",
-    "zod": "^3.21.4"
+    "xml2js": "^0.6.2",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@fastify/pre-commit": "^2.0.2",
-    "@total-typescript/ts-reset": "^0.4.2",
+    "@total-typescript/ts-reset": "^0.5.1",
     "@types/jstoxml": "^2.0.2",
-    "@types/lodash": "^4.14.195",
-    "@types/node": "^20.4.0",
-    "@types/xml2js": "^0.4.11",
-    "tsup": "^7.1.0",
-    "typescript": "^5.1.6"
+    "@types/lodash": "^4.14.199",
+    "@types/node": "^20.8.4",
+    "@types/xml2js": "^0.4.12",
+    "tsup": "^7.2.0",
+    "typescript": "^5.2.2"
   }
 }
