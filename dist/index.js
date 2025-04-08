@@ -52,8 +52,8 @@ var __async = (__this, __arguments, generator) => {
 };
 
 // index.ts
-var aleph_fetch_exports = {};
-__export(aleph_fetch_exports, {
+var index_exports = {};
+__export(index_exports, {
   borrowerInfo: () => borrowerInfo,
   find: () => find,
   findDocument: () => findDocument,
@@ -66,7 +66,7 @@ __export(aleph_fetch_exports, {
   updateBorrowerEmail: () => updateBorrowerEmail,
   updateItem: () => updateItem
 });
-module.exports = __toCommonJS(aleph_fetch_exports);
+module.exports = __toCommonJS(index_exports);
 
 // util/env-config.ts
 var import_config = require("dotenv/config");
